@@ -19,43 +19,51 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Locale>(
-      initialData: null,
+      initialData: localizationManager.currentAppLocale,
       stream: localizationManager.getLocaleStream(),
       builder: (context, snapshot) {
         return snapshot.hasData
-            ? MaterialApp(
-                title: 'Flutter Demo',
-                localizationsDelegates: [
-                  AppLocalization.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate
-                ],
-                locale: snapshot.data,
-                supportedLocales: [Locale("en", "US"), Locale("ru", "RU")],
-                localeResolutionCallback: (deviceLocale, supportedLocales) {
-                  for (var supportedLocale in supportedLocales) {
-                    if (deviceLocale.languageCode ==
-                            supportedLocale.languageCode) {
-                      return supportedLocale;
-                    }
-                  }
-                  return supportedLocales.first;
-                },
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                ),
-                home: MyHomePage(
-                  title: 'Flutter Demo Home Page',
-                  localizationManager: localizationManager,
-                ),
-              )
-            : Container(
-                color: Colors.white,
-                child: Center(child: CircularProgressIndicator()));
+            ? buildMaterialApp(snapshot)
+            : buildLoading();
       },
     );
+  }
+
+  Container buildLoading() {
+    return Container(
+              color: Colors.white,
+              child: Center(child: CircularProgressIndicator()));
+  }
+
+  MaterialApp buildMaterialApp(AsyncSnapshot<Locale> snapshot) {
+    return MaterialApp(
+              title: 'Flutter Demo',
+              localizationsDelegates: [
+                AppLocalization.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate
+              ],
+              locale: snapshot.data,
+              supportedLocales: localizationManager.supportedLocales,
+              localeResolutionCallback: (deviceLocale, supportedLocales) {
+                for (var supportedLocale in supportedLocales) {
+                  if (deviceLocale.languageCode ==
+                          supportedLocale.languageCode) {
+                    return supportedLocale;
+                  }
+                }
+                return supportedLocales.first;
+              },
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+              ),
+              home: MyHomePage(
+                title: 'Flutter Demo Home Page',
+                localizationManager: localizationManager,
+              ),
+            );
   }
 }
 
@@ -72,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    List<Locale> locales = [Locale("en"), Locale("ru")];
+    List<Locale> locales = widget.localizationManager.supportedLocales;
     widget.localizationManager.setLocale(locales[_counter % 2]);
     setState(() {
       _counter++;

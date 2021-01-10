@@ -3,12 +3,21 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalizationManager {
+  List<Locale> get supportedLocales;
+
+  Locale get currentAppLocale;
+
   Stream<Locale> getLocaleStream();
 
   void setLocale(Locale locale);
 }
 
 class AppLocalizationManager implements LocalizationManager {
+  final List<Locale> _supportedLocales = [
+    Locale("en", "US"),
+    Locale("ru", "RU")
+  ];
+
   BehaviorSubject<Locale> _localesSubject = BehaviorSubject();
 
   String _langKey = "lang_key";
@@ -27,6 +36,12 @@ class AppLocalizationManager implements LocalizationManager {
     }
     _localesSubject.add(Locale(_localeLangCode));
   }
+
+  @override
+  Locale get currentAppLocale => this._localesSubject.value;
+
+  @override
+  List<Locale> get supportedLocales => _supportedLocales;
 
   @override
   void setLocale(Locale locale) async {
