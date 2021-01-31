@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "39102175650",
+    "project_id": "chat-app-abee5",
+    "storage_bucket": "chat-app-abee5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39102175650:android:8045959a581a283773fafb",
+        "android_client_info": {
+          "package_name": "akhmetzzz.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39102175650-rld5i5b7hg5op1rk5ebm0i1qb1sea03b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB7yMw-DVcN7-acRYDuFDmUwFU8XAow80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39102175650-rld5i5b7hg5op1rk5ebm0i1qb1sea03b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

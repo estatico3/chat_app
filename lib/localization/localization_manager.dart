@@ -22,7 +22,7 @@ class AppLocalizationManager implements LocalizationManager {
 
   String _langKey = "lang_key";
 
-  String _defaultLanguage = "en";
+  String _defaultLanguage = "ru";
 
   AppLocalizationManager() {
     _initLocale();

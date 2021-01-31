@@ -26,7 +26,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  firebase_auth: ^0.20.0+1
+  firebase_core: ^0.7.0
   flutter_bloc: ^6.1.1
+  google_fonts: ^1.1.1
   shared_preferences: ^0.5.12+4
   rxdart: ^0.25.0
   cupertino_icons: ^1.0.0
@@ -44,3 +47,4 @@ flutter:
 
   assets:
     - lib/localization/lang/
+    - assets/
